@@ -13,29 +13,28 @@ Devvit.configure({
 
 // Add a custom post type to Devvit
 Devvit.addCustomPostType({
-  name: "Web View Example",
+  name: "Hand-Game With Devvit",
+  description:
+    "HandGame isn’t playable yet since Reddit doesn’t support WebSockets. Hoping for future support to make it happen!",
   height: "tall",
   render: (context) => {
-    // Fetch Server
-
-    const data = useState(async () => {
-      try {
-        const url = "http://handgamebackend-895255557740.us-central1.run.app";
-        const response = await fetch(url);
-        const data = response.text();
-        console.log("---> Respoce From Backend: " + data);
-      } catch (err) {
-        console.log("---> Eroro while fetching: ");
-        console.log(err);
-      }
-      return "";
-    });
-
     const webView = customReactWebView(context);
     return (
-      <vstack grow padding="small">
-        <vstack grow alignment="middle center">
-          <button onPress={() => webView.mount()}>Launch App</button>
+      <vstack grow padding="small" backgroundColor="#13192D">
+        <vstack gap="large" grow alignment="middle center">
+          <vstack gap="small" alignment="middle center">
+            <image url="logo.png" imageHeight={150} imageWidth={150}></image>
+            <text weight="bold" size="xxlarge" style="heading" color="#ffffff">
+              The Classic Battle
+            </text>
+            <text size="xlarge" weight="regular" color="#B0B8D1">
+              Strategy or chance? Only the lucky will win!
+            </text>
+          </vstack>
+
+          <button width={32} size="large" onPress={() => webView.mount()}>
+            Enter The Area
+          </button>
         </vstack>
       </vstack>
     );
@@ -49,11 +48,7 @@ function customReactWebView(context: Devvit.Context) {
 
     // Handle messages sent from the web view
     async onMessage(message, webView) {
-      console.log("--------> Received message From WebView", message);
-
-      if (message.type == "entered") {
-        // like signIn return the user identifier
-      }
+      ///
     },
     onUnmount() {
       context.ui.showToast("Web view closed!");
