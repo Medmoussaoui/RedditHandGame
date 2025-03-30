@@ -1,0 +1,215 @@
+.tertiary-button {
+  background-color: #b0b8d105;
+  color: #b0b8d180;
+  font-size: 13.5px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  height: 100%;
+  transition: 0.4s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.tertiary-button:hover {
+  background-color: #b0b8d105;
+  color: #b0b8d1;
+  border: 1px solid #b0b8d120;
+  transition: 0.4s ease;
+}
+
+.secondaryButton {
+  background-color: #8e44ad15;
+  color: #8e44ad;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8.5px;
+  height: 100%;
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+
+.secondaryButton:hover {
+  background-color: #8e44ad;
+  color: white;
+}
+
+.customInput {
+  color: #b0b8d1;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.customInput::placeholder {
+  color: #b0b8d128;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.clicableText {
+  transition: 0.4s ease;
+  opacity: 1;
+}
+
+.clicableText:hover {
+  opacity: 0.5;
+}
+
+.miniInputForm {
+  color: #b0b8d1;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.miniInputForm::placeholder {
+  color: #b0b8d128;
+  font-size: 18px;
+  font-weight: 100;
+}
+
+/* Remove increment/decrement buttons for Chrome, Safari, Edge, and Opera */
+.miniInputForm::-webkit-inner-spin-button,
+.miniInputForm::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.increment-decrement-box {
+  display: flex; /* Required for alignment */
+  padding: 10px;
+  border: 1px solid #b0b8d120;
+  border-radius: 13px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 60px;
+  cursor: pointer;
+  color: #b0b8d128;
+}
+
+.increment-decrement-box:hover {
+  color: #ffffff;
+  border: 1px solid #b0b8d170;
+}
+
+.selected-button {
+  background-color: #8e44ad05;
+  border: 1px solid #9b59b6;
+  transition: all 0.3s ease;
+  transform-origin: center;
+  color: #8e44ad;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.unselected-button {
+  background-color: transparent;
+  border: 1px solid #b0b8d150;
+  transition: all 0.3s ease;
+  color: #b0b8d160;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.selected-button:hover {
+  background-color: #8e44ad10;
+}
+
+.unselected-button:hover {
+  border-color: #9b59b6;
+  background-color: #8e44ad05;
+}
+
+.game-card {
+  width: 145px;
+  height: 170px;
+  background-color: #b0b8d112;
+  border-radius: 20px;
+  border: 1px solid #b0b8d120;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: all 0.5s ease-in-out; /* Smooth animation */
+}
+
+.game-card-option-selected {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.game-card-option-selected {
+  opacity: 1;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.game-card-option-unselected {
+  opacity: 0.35;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.game-card-option-unselected:hover {
+  opacity: 1;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.player-option-img-fade-in {
+  animation: slideFade 0.5s ease-in-out;
+}
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.background-img-style {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  align-self: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1;
+  animation: fadeAndZoomIn 1s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeAndZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
