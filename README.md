@@ -1,3 +1,6 @@
+![Alt Text](assets/logo.png)
+
+
 # HandGame Arena 🎮  
 
 HandGame Arena is a fast-paced multiplayer Rock-Paper-Scissors elimination game built for Reddit. Players can create private rooms, invite friends, or join public rooms to compete in real time. The last player standing wins!  
