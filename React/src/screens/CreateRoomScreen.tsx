@@ -35,7 +35,7 @@ const CreateRoomScreen = () => {
 
   if (room) {
     const roomEntity: RoomEntity = {
-      roomId: room.id,
+      roomId: room.roomId,
       roomName: room.name,
       totalPlayers: room.maxPlayers,
       joinedPlayers: 1,

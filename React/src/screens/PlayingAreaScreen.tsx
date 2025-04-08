@@ -1,33 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import PlayingAreaAppBar from "../components/PlayingAreaAppBar";
 import Playing from "../components/PlayingAreaScreen/Playing";
-import RoundResult from "../components/PlayingAreaScreen/RoundResult";
 import ProgressBarTimer from "../components/ProgressBarTimer";
 import { useSocketContext } from "../contexts/socketContext";
-import { PlayingData, RoundResultData } from "../entitys/events.data.entitys";
+import { RoundResultData } from "../entitys/events.data.entitys";
+import RoundResult from "../components/PlayingAreaScreen/RoundResult";
+import { usePlayingAreaContext } from "../contexts/playingAreaContext";
 
 type GameStates = "playing" | "roundResult" | "victory";
 
 function usePlayingAreaManager() {
   const socket = useSocketContext();
-  const [gameState, setGameState] = useState<GameStates>("playing");
-  const [roundResult, setRoundResult] = useState<RoundResultData>();
-  const [playingData, setPlayingData] = useState<PlayingData>({
-    roundNumber: 1,
-    roundEndTime: new Date(),
-    playersCount: 8,
-  });
+  const context = usePlayingAreaContext();
 
   useEffect(() => {
     socket?.on("roundResult", (data: RoundResultData) => {
-      setRoundResult(data);
-      setGameState("roundResult");
+      context.dispatch({ type: "ROUND_RESULT", payload: data });
     });
 
     socket?.on("playing", (data) => {
-      setRoundResult(undefined);
-      setGameState("playing");
-      setPlayingData(data);
+      context.dispatch({ type: "PLAYING", payload: data });
     });
 
     return () => {
@@ -36,11 +28,11 @@ function usePlayingAreaManager() {
     };
   }, [socket]);
 
-  return { gameState, roundResult, playingData };
+  return { state: context.state, dispatch: context.dispatch };
 }
 
 const PlayingAreaScreen = () => {
-  const { gameState, roundResult, playingData } = usePlayingAreaManager();
+  const { state } = usePlayingAreaManager();
 
   return (
     <div
@@ -50,8 +42,8 @@ const PlayingAreaScreen = () => {
         height: "100vh", // Ensure full viewport height
       }}
     >
-      <PlayingAreaAppBar {...playingData} />
-      {gameState == "playing" && (
+      <PlayingAreaAppBar {...state.playingData!} />
+      {state.gameState == "playing" && (
         <ProgressBarTimer
           ms={12000}
           onComplete={() => {
@@ -59,9 +51,9 @@ const PlayingAreaScreen = () => {
           }}
         />
       )}
-      {gameState == "playing" && <Playing />}
-      {gameState == "roundResult" && roundResult && (
-        <RoundResult {...roundResult!} />
+      {state.gameState == "playing" && <Playing />}
+      {state.gameState == "roundResult" && state.roundResult && (
+        <RoundResult {...state.roundResult!} />
       )}
     </div>
   );

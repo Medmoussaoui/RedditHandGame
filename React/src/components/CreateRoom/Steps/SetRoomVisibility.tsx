@@ -18,6 +18,7 @@ const SetRoomVisibility = () => {
   };
 
   const handleLaunchRoom = () => {
+    state.roomInfo.name = state.roomInfo.name.replace("#", "");
     socket?.emit("createRoom", state.roomInfo);
     console.log("----> Send Emit (createRoom) Event ");
     console.log("RoomInfo : " + JSON.stringify(state.roomInfo));

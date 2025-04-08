@@ -5,21 +5,28 @@ import JoinRoomForm from "../components/JoinRoomForm";
 import TitleAndDescription from "../components/TitleAndDescription";
 import { useSocketContext } from "../contexts/socketContext";
 import { useNavigate } from "react-router-dom";
-import { JoinRoomData } from "../entitys/events.data.entitys";
+import {
+  JoinRoomData,
+  JoinsData,
+  PlayingData,
+} from "../entitys/events.data.entitys";
 import GuestBeginSoonScreen from "./GuestBeginSoonScreen";
 
 const JoinRoomScreen = () => {
   const navigate = useNavigate();
   const socket = useSocketContext();
-  const [room, setRoom] = useState<JoinRoomData | undefined>(undefined);
+  const [room, setRoom] = useState<JoinRoomData | undefined>();
 
   useEffect(() => {
     console.log("----> Lisen on roomJoined event");
+
     socket?.on("roomJoined", (data: JoinRoomData) => {
       console.log("-----------> Your are join room success: " + data.roomId);
+      console.log("-----------> Your are join room: " + data.totalPlayers);
       setRoom(data);
       // redirect to Begin Son
     });
+
     return () => {
       console.log("----> Remove Lisen on roomJoined event");
       socket?.off("roomJoined");

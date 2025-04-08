@@ -8,7 +8,7 @@ export interface CreateRoomData {
 }
 
 export interface CreatedRoomData extends CreateRoomData {
-  id: string;
+  roomId: string;
 }
 
 /// when client send joinRoom event server process/success and emit this
@@ -28,7 +28,6 @@ export interface JoinsData {
 export interface JoinRoomData extends RoomEntity {}
 
 export interface RoundResultData {
-  yourOption: GameCardOptions;
   winingOption?: GameCardOptions;
   options: SelectedOption[];
   isLastRound?: boolean;
@@ -38,4 +37,18 @@ export interface PlayingData {
   roundNumber: number;
   roundEndTime: Date;
   playersCount: number;
+}
+
+export interface PlayerLeftData {
+  roomId: string;
+  playerId: string;
+  remainsePlayers: number;
+}
+
+export interface LeavedRoomData {
+  roomId: string;
+}
+
+export interface LeaveRoomData {
+  roomId: string;
 }

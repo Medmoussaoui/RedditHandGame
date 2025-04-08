@@ -1,14 +1,24 @@
-import { RoundResultData } from "../../entitys/events.data.entitys";
+import { RoundResultEntity } from "../../entitys/game.entitys";
 import LightTitle from "../LightTitle";
 import MagicText from "../MagicText";
 import PlayerOption from "../PlayerOption";
 import TimerCounter from "../TimerCounter";
 import Victory from "./Victory";
 
-function RoundResult(result: RoundResultData) {
+function isDrawRound(RoundResult: RoundResultEntity) {
+  const { options } = RoundResult;
+  let isDraw = false;
+  let matches = 0;
+  for (let option of options) {
+    if (option.quantity > 0) matches += 1;
+  }
+  return matches == 1 || matches == 3;
+}
+
+function RoundResult(result: RoundResultEntity) {
   const { options, yourOption, winingOption } = result;
 
-  const isDraw = options.every((option) => option.quantity > 0);
+  const isDraw = isDrawRound(result);
 
   const isWin = isDraw
     ? false
@@ -30,13 +40,18 @@ function RoundResult(result: RoundResultData) {
     (option) => option.option == yourOption
   );
 
-  const myCategory = copyOptions.splice(myPosition, 1)[0];
+  const myOption = copyOptions.splice(myPosition, 1)[0];
 
-  const index = copyOptions.findIndex((option) => option.quantity === 0);
+  const nonSelectedOptionIndex = copyOptions.findIndex(
+    (option) => option.quantity === 0
+  );
+
   const firstOption =
-    index == -1 ? copyOptions.slice(0)[0] : copyOptions.slice(index)[0];
+    nonSelectedOptionIndex == -1
+      ? copyOptions.splice(0, 1)[0]
+      : copyOptions.splice(nonSelectedOptionIndex, 1)[0];
 
-  const newOptions = [firstOption, myCategory, copyOptions[0]];
+  const newOptions = [firstOption, myOption, copyOptions[0]];
 
   return (
     <div

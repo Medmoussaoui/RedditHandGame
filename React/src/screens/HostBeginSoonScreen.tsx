@@ -1,11 +1,16 @@
 import TitleAndDescription from "../components/TitleAndDescription";
 import RoomLink from "../components/RoomLink";
-import MagicText from "../components/MagicText";
 import { RoomEntity } from "../entitys/room.entity";
 import { useEffect, useState } from "react";
 import { useSocketContext } from "../contexts/socketContext";
-import { JoinsData } from "../entitys/events.data.entitys";
+import {
+  JoinsData,
+  LeavedRoomData,
+  PlayerLeftData,
+  PlayingData,
+} from "../entitys/events.data.entitys";
 import { useNavigate } from "react-router-dom";
+import TertiaryButton from "../components/TertiaryButton";
 
 const HostBeginSoonScreen = (roomEntity: RoomEntity) => {
   const navigate = useNavigate();
@@ -18,8 +23,19 @@ const HostBeginSoonScreen = (roomEntity: RoomEntity) => {
       setRoom((prev) => ({ ...prev, joinedPlayers: data.joinedPlayers }));
     });
 
-    socket?.on("gameStart", (data) => {
-      navigate("/playing", { replace: true });
+    socket?.on("roomLeft", (data: LeavedRoomData) => {
+      navigate("/");
+    });
+
+    socket?.on("playerLeft", (data: PlayerLeftData) => {
+      setRoom((prev) => ({ ...prev, joinedPlayers: data.remainsePlayers }));
+    });
+
+    socket?.on("gameStarted", (data: PlayingData) => {
+      navigate("/playing", {
+        replace: true,
+        state: { data },
+      });
     });
 
     return () => {
@@ -27,6 +43,10 @@ const HostBeginSoonScreen = (roomEntity: RoomEntity) => {
       socket?.off("gameStart");
     };
   }, [socket]);
+
+  const cancelRoomHandler = () => {
+    socket?.emit("cancelRoom");
+  };
 
   return (
     <div
@@ -55,7 +75,8 @@ const HostBeginSoonScreen = (roomEntity: RoomEntity) => {
       <RoomLink playersCount={room.joinedPlayers ?? 1} roomId={room.roomId} />
       <br />
       <br />
-      <MagicText text="Begins Soon" />
+      {/* <MagicText text="Begins Soon" /> */}
+      <TertiaryButton title="Cancel" onClick={cancelRoomHandler} />
     </div>
   );
 };

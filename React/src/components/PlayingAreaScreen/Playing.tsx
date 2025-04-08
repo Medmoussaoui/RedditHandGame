@@ -2,17 +2,32 @@ import CountdownTimer from "../CountDown";
 import "../../styles.css";
 import PlayerOption from "../PlayerOption";
 import SelectYourCard from "./SelectYourCard";
-import { useState } from "react";
 import { GameCardOptions } from "../../entitys/game.entitys";
+import { useSocketContext } from "../../contexts/socketContext";
+import { usePlayingAreaContext } from "../../contexts/playingAreaContext";
+import { useEffect } from "react";
+import { randomGameGard } from "../../functions/radndomGameCard";
 
 function Playing() {
-  const [selectedCard, setSelectedCard] = useState<
-    GameCardOptions | undefined
-  >();
+  const socket = useSocketContext();
+  const { state, dispatch } = usePlayingAreaContext();
+  const selectedCard = state.selectedCard;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (selectedCard === undefined) {
+        handleOnSelect(randomGameGard());
+      }
+    }, 8000);
+
+    // Clean up the timeout on unmount
+    return () => clearTimeout(timer);
+  }, [selectedCard]);
 
   const handleOnSelect = (card: GameCardOptions) => {
     console.log("-----> Your Select " + card);
-    setSelectedCard(card);
+    dispatch({ type: "SELECT_CARD", payload: card });
+    socket?.emit("selectGameCard", { option: card });
   };
 
   return (

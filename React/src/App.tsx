@@ -7,6 +7,7 @@ import CreateRoomScreen from "./screens/CreateRoomScreen";
 import { CreateRoomProvider } from "./contexts/createRoomContext";
 import SocketProvider from "./contexts/socketContext";
 import PlayingAreaScreen from "./screens/PlayingAreaScreen";
+import PlayingAreaProvider from "./contexts/playingAreaContext";
 
 const App: React.FC = () => {
   return (
@@ -34,7 +35,14 @@ const App: React.FC = () => {
                 </CreateRoomProvider>
               }
             />
-            <Route path="/playing" element={<PlayingAreaScreen />} />
+            <Route
+              path="/playing"
+              element={
+                <PlayingAreaProvider>
+                  <PlayingAreaScreen />
+                </PlayingAreaProvider>
+              }
+            />
           </Routes>
         </SocketProvider>
       </main>

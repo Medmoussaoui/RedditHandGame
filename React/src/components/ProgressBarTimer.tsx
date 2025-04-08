@@ -47,7 +47,7 @@ function ProgressBarTimer({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [ms, onComplete]);
+  }, [ms]);
 
   return (
     <div
