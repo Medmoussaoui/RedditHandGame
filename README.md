@@ -28,4 +28,11 @@ See the **[HandGame Backend Repository](https://github.com/Medmoussaoui/HandGame
 
 ## 📌 Next Steps  
 - If WebSockets become available in Devvit, I'll bring the game to Reddit.  
-- Exploring alternative ways to enable real-time multiplayer on Reddit. 
+- Exploring alternative ways to enable real-time multiplayer on Reddit.
+
+---
+
+
+## 📄 License
+
+MIT
