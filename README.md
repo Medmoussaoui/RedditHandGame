@@ -23,6 +23,9 @@ Reddit does not currently support WebSockets, so the game **won’t work on Redd
 ## 📺 Community  
 Join the **[HandGame Arena Reddit Community](https://www.reddit.com/r/handchallenge/)** to discuss the game, share feedback, and stay updated!  
 
+## 🕹️ Backend  
+See the **[HandGame Backend Repository](https://github.com/Medmoussaoui/HandGameBackendPublic)**
+
 ## 📌 Next Steps  
 - If WebSockets become available in Devvit, I'll bring the game to Reddit.  
 - Exploring alternative ways to enable real-time multiplayer on Reddit. 
