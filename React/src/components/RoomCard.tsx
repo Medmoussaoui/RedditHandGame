@@ -1,9 +1,9 @@
-import { RoomEntity } from "../entitys/room.entity";
+import { PublicRoomEntity, RoomEntity } from "../entitys/room.entity";
 import SecondryButton from "./SecndryButton";
 
 interface RoomCardProps {
   index: number;
-  room: RoomEntity;
+  room: PublicRoomEntity;
   onClickJoinRoom: (roomId: string) => void;
 }
 
@@ -34,7 +34,7 @@ const RoomCard = (props: RoomCardProps) => {
   );
 };
 
-function RoomNameAndPlayers({ room }: { room: RoomEntity }) {
+function RoomNameAndPlayers({ room }: { room: PublicRoomEntity }) {
   return (
     <div>
       <div
@@ -46,10 +46,10 @@ function RoomNameAndPlayers({ room }: { room: RoomEntity }) {
         }}
       >
         {"#"}
-        {room.roomName}
+        {room.name}
       </div>
       <div style={{ fontWeight: "100", fontSize: "12px", color: "#B0B8D1" }}>
-        {room.totalPlayers} Players Joined
+        {room.joinedPlayers} Players Joined
       </div>
     </div>
   );

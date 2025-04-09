@@ -1,9 +1,29 @@
+import { useEffect, useState } from "react";
 import AppBar from "../components/AppBar";
 import RoomsList from "../components/PublicRooms";
 import TitleAndDescription from "../components/TitleAndDescription";
 import "../styles.css";
+import { JoinRoomData } from "../entitys/events.data.entitys";
+import GuestBeginSoonScreen from "./GuestBeginSoonScreen";
+import { useSocketContext } from "../contexts/socketContext";
 
 function NavigatePublicRooms() {
+  const socket = useSocketContext();
+  const [room, setRoom] = useState<JoinRoomData>();
+
+  useEffect(() => {
+    socket?.on("roomJoined", (data: JoinRoomData) => {
+      setRoom(data);
+    });
+    return () => {
+      socket?.off("roomJoined");
+    };
+  }, [socket]);
+
+  if (room) {
+    return <GuestBeginSoonScreen room={room} />;
+  }
+
   return (
     <div
       style={{

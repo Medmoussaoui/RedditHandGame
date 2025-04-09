@@ -5,11 +5,7 @@ import JoinRoomForm from "../components/JoinRoomForm";
 import TitleAndDescription from "../components/TitleAndDescription";
 import { useSocketContext } from "../contexts/socketContext";
 import { useNavigate } from "react-router-dom";
-import {
-  JoinRoomData,
-  JoinsData,
-  PlayingData,
-} from "../entitys/events.data.entitys";
+import { JoinRoomData } from "../entitys/events.data.entitys";
 import GuestBeginSoonScreen from "./GuestBeginSoonScreen";
 
 const JoinRoomScreen = () => {

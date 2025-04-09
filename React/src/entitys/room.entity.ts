@@ -5,4 +5,14 @@ export interface RoomEntity {
   joinedPlayers?: number;
 }
 
+export interface PublicRoomEntity {
+  roomId: string;
+  name: string;
+  maxPlayers: number;
+  visibility: RoomVisibility;
+  owner: string;
+  joinedPlayers: number;
+  createdAt: Date;
+}
+
 export type RoomVisibility = "Public" | "Private";
